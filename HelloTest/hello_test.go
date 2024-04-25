@@ -3,9 +3,23 @@ package main
 import "testing"
 
 func TestHello(t *testing.T) {
-	want := "Hello, world!"
-	get := Hello()
-	if want != get {
-		t.Errorf("want %q get %q", want, get)
+
+	t.Run("Hello, Chris", func(t *testing.T) {
+		want := "Hello, Chris!"
+		got := Hello("Chris")
+		assertCorrectMessage(t, want, got)
+	})
+
+	t.Run("Hello, World", func(t *testing.T) {
+		want := "Hello, World"
+		got := Hello("")
+		assertCorrectMessage(t, want, got)
+	})
+}
+
+func assertCorrectMessage(t testing.TB, want, got string) {
+	t.Helper()
+	if want != got {
+		t.Errorf("want %q get %q", want, got)
 	}
 }
